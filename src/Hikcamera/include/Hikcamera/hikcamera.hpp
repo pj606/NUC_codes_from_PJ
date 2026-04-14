@@ -1,10 +1,8 @@
 #pragma once
 
 #include <atomic>
-#include <condition_variable>
 #include <cstdint>
 #include <mutex>
-#include <optional>
 #include <string>
 #include <thread>
 #include <vector>
@@ -16,8 +14,17 @@
 namespace hik_camera {
 
 struct HikImage {
-  cv::Mat bgr;
-  uint64_t device_ts_ns{0};
+  // BGR8
+  cv::Mat     img;
+  uint64_t    timestamp{0};
+};
+
+struct HikStatus {
+
+  int           code{MV_OK};
+  std::string   message;
+
+  explicit operator bool() const { return code == MV_OK; }
 };
 
 class HikCamera {
@@ -25,49 +32,57 @@ public:
   HikCamera() = default;
   ~HikCamera();
 
-  bool openBySerial(const std::string& serial);
-  void close();
+  HikCamera(const HikCamera&) = delete;
+  HikCamera& operator=(const HikCamera&) = delete;
 
-  bool start();
-  void stop();
+  HikCamera(HikCamera&&) = default;
+  HikCamera& operator=(HikCamera&&) = default;
 
-  bool setExposure(double us);
-  bool setGain(double gain);
-  bool setFps(double fps);
+  HikStatus open(const std::string& serial = "");
+
+  HikStatus close();
+
+  HikStatus start_grab();
+
+  HikStatus stop_grab();
+
+  HikStatus setExposure(double us);
+
+  HikStatus setGain(double gain);
+
+  HikStatus setFps(double fps);
 
   bool getLatestFrame(HikImage& out);
 
-  std::string lastError() const;
+  bool isOpened() const;
+
+  bool isRunning() const;
 
 private:
   struct BufferSlot {
-    std::vector<uint8_t> data;
-    uint32_t w{0}, h{0};
-    uint64_t ts_ns{0};
-    bool valid{false};
+    std::vector<uint8_t>  data;
+    uint32_t              w{0};
+    uint32_t              h{0};
+    uint64_t              ts_ns{0};
+    bool                  valid{false};
   };
 
   void grabLoop();
-  bool applyExposureLocked(double us);
-  bool applyGainLocked(double gain);
-  bool applyFpsLocked(double fps);
-  void setErrorLocked(const std::string& e);
 
-private:
-  mutable std::mutex mtx_;
-  std::condition_variable cv_;
-  std::atomic<bool> running_{false};
-  std::thread th_;
+  
+  void*       handle_{nullptr};
 
-  void* handle_{nullptr};
-  bool is_open_{false};
+  BufferSlot  buffer_slot_[2];
+  int         write_idx_{0};
+  int         read_idx_{1};
 
-  BufferSlot slots_[2];
-  int write_idx_{0};
-  int read_idx_{1};
+  std::vector<uint8_t>  raw_buffer_;
 
-  std::vector<uint8_t> raw_buf_;
-  std::string last_error_;
+  mutable std::mutex    device_mtx_;
+  mutable std::mutex    buffer_mtx_;
+  std::atomic<bool>     is_opened_{false};
+  std::atomic<bool>     is_running_{false};
+  std::thread           grab_thread_;
 };
 
-} // namespace hik_camera_driver
+} // namespace hik_camera
