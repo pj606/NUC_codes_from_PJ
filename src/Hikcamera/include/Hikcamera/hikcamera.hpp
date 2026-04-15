@@ -4,8 +4,10 @@
 #include <cstdint>
 #include <mutex>
 #include <string>
+#include <stdexcept>
 #include <thread>
 #include <vector>
+
 
 #include <opencv2/core.hpp>
 
@@ -21,7 +23,7 @@ struct HikImage {
 
 struct HikStatus {
 
-  int           code{MV_OK};
+  uint32_t      code{MV_OK};
   std::string   message;
 
   explicit operator bool() const { return code == MV_OK; }
@@ -30,13 +32,13 @@ struct HikStatus {
 class HikCamera {
 public:
   HikCamera() = default;
-  ~HikCamera();
+  ~HikCamera() noexcept;
 
   HikCamera(const HikCamera&) = delete;
   HikCamera& operator=(const HikCamera&) = delete;
 
-  HikCamera(HikCamera&&) = default;
-  HikCamera& operator=(HikCamera&&) = default;
+  HikCamera(HikCamera&&) = delete;
+  HikCamera& operator=(HikCamera&&) = delete;
 
   HikStatus open(const std::string& serial = "");
 
@@ -46,11 +48,11 @@ public:
 
   HikStatus stop_grab();
 
-  HikStatus setExposure(double us);
+  HikStatus setExposure(float us);
 
-  HikStatus setGain(double gain);
+  HikStatus setGain(float gain);
 
-  HikStatus setFps(double fps);
+  HikStatus setFps(float fps);
 
   bool getLatestFrame(HikImage& out);
 
@@ -69,7 +71,7 @@ private:
 
   void grabLoop();
 
-  
+
   void*       handle_{nullptr};
 
   BufferSlot  buffer_slot_[2];
