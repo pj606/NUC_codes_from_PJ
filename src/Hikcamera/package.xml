@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="3">
-  <name>hik_camera_driver</name>
+  <name>hik_camera</name>
   <version>0.0.1</version>
   <description>Hikrobot MVS camera driver for ROS 2 Humble</description>
 

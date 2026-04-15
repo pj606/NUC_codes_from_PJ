@@ -3,7 +3,7 @@
 #include <memory>
 
 
-#include "Hikcamera/hikcamera.hpp"
+#include "Hikcamera/hik_camera.hpp"
 
 
 namespace hik_camera {
