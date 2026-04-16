@@ -4,9 +4,10 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
+                "${workspaceFolder}/",
                 "/opt/MVS/include",
-                "/usr/include/opencv4",
-                "${workspaceFolder}/"
+                "/opt/ros/humble/include",
+                "/usr/include/opencv4"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
