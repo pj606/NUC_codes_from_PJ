@@ -305,7 +305,7 @@ void HikCamera::grabLoop()
     convert_param.pSrcData = raw_buffer_.data();
     convert_param.nSrcDataLen = data_len;
     convert_param.enSrcPixelType = out_frame.stFrameInfo.enPixelType;
-    convert_param.enDstPixelType = PixelType_Gvsp_RGB8_Packed;
+    convert_param.enDstPixelType = PixelType_Gvsp_BGR8_Packed;
     convert_param.nDstBufferSize = w * h * 3;
 
     int wi;
@@ -319,6 +319,9 @@ void HikCamera::grabLoop()
     }
 
     nRet = MV_CC_ConvertPixelType(handle_, &convert_param);
+
+    MV_CC_FreeImageBuffer(handle_, &out_frame);
+
     if(nRet != MV_OK) {
       continue;
     }
