@@ -1,6 +1,6 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
-#include "Hikcamera/hik_camera.hpp"
+#include "hik_camera/hik_camera.hpp"
 
 int main() {
   hik_camera::HikCamera cam;

@@ -10,7 +10,9 @@
                 "/usr/include/opencv4",
                 "/opt/ros/humble/include",
                 "${workspaceFolder}/",
-                "${workspaceFolder}/src/drivers/hik_camera/include"
+                "${workspaceFolder}/src/drivers/hik_camera/include",
+                "/opt/ros/humble/include/std_srvs",
+                "/opt/ros/humble/include/cv_bridge"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
