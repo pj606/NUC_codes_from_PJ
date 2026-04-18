@@ -4,7 +4,6 @@
 
 #include "hik_camera/hik_camera.hpp"
 
-
 namespace hik_camera {
 
 HikCamera::~HikCamera() noexcept
