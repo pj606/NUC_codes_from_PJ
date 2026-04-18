@@ -2,4 +2,4 @@ ovo
 
 coding...
 
-current progress: [#         ](2%)
+current progress: [#         ]2%

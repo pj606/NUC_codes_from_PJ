@@ -8,7 +8,9 @@
                 "/opt/MVS/include",
                 "/opt/ros/humble/include/**",
                 "/usr/include/opencv4",
-                "/opt/ros/humble/include"
+                "/opt/ros/humble/include",
+                "${workspaceFolder}/",
+                "${workspaceFolder}/src/drivers/hik_camera/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
