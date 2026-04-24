@@ -12,7 +12,8 @@
                 "${workspaceFolder}/",
                 "${workspaceFolder}/src/drivers/hik_camera/include",
                 "/opt/ros/humble/include/std_srvs",
-                "/opt/ros/humble/include/cv_bridge"
+                "/opt/ros/humble/include/cv_bridge",
+                "/opt/ros/humble/include/camera_info_manager"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

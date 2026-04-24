@@ -10,9 +10,13 @@
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <depend>rclcpp</depend>
+  <depend>rclcpp_components</depend>
+  <depend>class_loader</depend>
   <depend>std_msgs</depend>
   <depend>sensor_msgs</depend>
   <depend>hik_camera</depend>
+  <depend>launch</depend>
+  <depend>launch_ros</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

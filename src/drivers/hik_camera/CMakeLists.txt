@@ -11,9 +11,13 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclcpp_components REQUIRED)
+find_package(class_loader REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(std_srvs REQUIRED)
 find_package(cv_bridge REQUIRED)
+find_package(camera_info_manager REQUIRED)
 find_package(OpenCV REQUIRED)
 
 set(MVS_ROOT "/opt/MVS")
@@ -34,6 +38,33 @@ add_library(${PROJECT_NAME}_core SHARED
   src/hik_camera.cpp
 )
 
+add_library(${PROJECT_NAME}_component SHARED
+  src/camera_node.cpp
+)
+
+target_include_directories(${PROJECT_NAME}_component
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+)
+
+target_link_libraries(${PROJECT_NAME}_component
+  ${PROJECT_NAME}_core
+)
+
+ament_target_dependencies(${PROJECT_NAME}_component
+  rclcpp
+  rclcpp_components
+  class_loader
+  sensor_msgs
+  std_msgs
+  std_srvs
+  cv_bridge
+  camera_info_manager
+)
+
+rclcpp_components_register_nodes(${PROJECT_NAME}_component "hik_camera::CameraNode")
+
 target_include_directories(${PROJECT_NAME}_core
   PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -53,7 +84,7 @@ set_target_properties(${PROJECT_NAME}_core PROPERTIES
 )
 
 install(
-  TARGETS ${PROJECT_NAME}_core
+  TARGETS ${PROJECT_NAME}_core ${PROJECT_NAME}_component
   EXPORT export_${PROJECT_NAME}
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
@@ -64,6 +95,6 @@ install(DIRECTORY include/ DESTINATION include)
 
 ament_export_targets(export_${PROJECT_NAME} HAS_LIBRARY_TARGET)
 ament_export_include_directories(include)
-ament_export_dependencies(OpenCV rclcpp sensor_msgs std_msgs cv_bridge)
+ament_export_dependencies(OpenCV rclcpp rclcpp_components class_loader sensor_msgs std_msgs std_srvs cv_bridge camera_info_manager)
 
 ament_package()

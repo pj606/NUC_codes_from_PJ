@@ -7,6 +7,8 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclcpp_components REQUIRED)
+find_package(class_loader REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 
@@ -23,9 +25,31 @@ ament_target_dependencies(test_camera_noNode
   hik_camera
 )
 
+add_library(camera_image_view_component SHARED src/camera_image_view_node.cpp)
+target_link_libraries(camera_image_view_component ${OpenCV_LIBS})
+ament_target_dependencies(camera_image_view_component
+  rclcpp
+  rclcpp_components
+  class_loader
+  sensor_msgs
+)
+
+rclcpp_components_register_nodes(camera_image_view_component "test_pkg::CameraImageViewNode")
+
 install(TARGETS
   test_camera_noNode
   DESTINATION lib/${PROJECT_NAME}
+)
+
+install(TARGETS
+  camera_image_view_component
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION lib
+)
+
+install(DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME}
 )
 
 if(BUILD_TESTING)

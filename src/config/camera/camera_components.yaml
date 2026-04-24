@@ -1,0 +1,17 @@
+hik_camera_node:
+  ros__parameters:
+    frame_id: camera
+    image_topic: image_raw
+    camera_info_topic: camera_info
+    camera_info_url: "file:///home/pg/LiDARs/NUC606_lidar_27/src/config/camera/camera_info.yaml"
+    serial: DA1919491
+    capture_period_ms: 30
+    reconnect_period_ms: 5000
+    fail_threshold: 5
+    width: 3072
+    height: 2048
+
+camera_image_view_node:
+  ros__parameters:
+    image_topic: image_raw
+    window_name: camera_view
