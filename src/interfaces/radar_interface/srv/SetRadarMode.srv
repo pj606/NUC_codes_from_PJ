@@ -1,5 +1,6 @@
 # mode: 0=IDLE, 1=SCAN, 2=TRACK, 3=DEBUG
 uint8 mode
+# enable flags are applied when mode is SCAN or TRACK; ignored in IDLE
 bool enable_detection
 bool enable_tracking
 string source

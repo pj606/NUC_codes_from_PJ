@@ -4,12 +4,12 @@
 
 | Layer | Packages | Responsibility |
 | --- | --- | --- |
-| Drivers | `drivers/hik_camera`, `drivers/lidar_driver` | Sensor acquisition (camera/lidar, lidar scaffold) |
-| Perception | `perception/img_detector`, `perception/ray_tracing` | Detection, ray tracing, target extraction |
-| Decision | `decision/double_vulner` | Vulnerability evaluation and output selection |
-| Interfaces | `interfaces/radar_interface` | Unified messages/services for radar I/O |
-| Bringup | `bringup/radar_bringup` | System launch, parameters, diagnostics, rosbag |
-| Tools | `tools/test_pkg` | Debug/visualization helpers (camera view) |
+| Drivers | `hik_camera`, `lidar_driver` | Sensor acquisition (camera/lidar, lidar scaffold) |
+| Perception | `img_detector`, `ray_tracing` | Detection, ray tracing, target extraction |
+| Decision | `double_vulner` | Vulnerability evaluation and output selection |
+| Interfaces | `radar_interface` | Unified messages/services for radar I/O |
+| Bringup | `radar_bringup` | System launch, parameters, diagnostics, rosbag |
+| Tools | `test_pkg` | Debug/visualization helpers (camera view) |
 
 ## Architecture overview
 
