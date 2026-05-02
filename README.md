@@ -4,7 +4,7 @@
 
 | Layer | Packages | Responsibility |
 | --- | --- | --- |
-| Drivers | `hik_camera`, `lidar_driver` | Sensor acquisition (camera/lidar, lidar scaffold) |
+| Drivers | `hik_camera`, `lidar_driver` | Sensor acquisition (camera/lidar scaffolding) |
 | Perception | `img_detector`, `ray_tracing` | Detection, ray tracing, target extraction |
 | Decision | `double_vulner` | Vulnerability evaluation and output selection |
 | Interfaces | `radar_interface` | Unified messages/services for radar I/O |

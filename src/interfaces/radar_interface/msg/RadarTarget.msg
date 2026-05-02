@@ -7,4 +7,4 @@ float32 distance
 float32 yaw
 float32 pitch
 float32 confidence
-bool is_hostile
+bool is_threat

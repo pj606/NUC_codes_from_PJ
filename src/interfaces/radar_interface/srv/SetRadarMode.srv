@@ -5,6 +5,7 @@ uint8 mode
 # - SCAN: enable_detection applied, enable_tracking ignored
 # - TRACK: enable_tracking applied, enable_detection optional
 # - DEBUG: both applied
+# mode transition: entering IDLE or SCAN should reset tracking state; entering TRACK preserves last targets if available
 bool enable_detection
 bool enable_tracking
 string source
