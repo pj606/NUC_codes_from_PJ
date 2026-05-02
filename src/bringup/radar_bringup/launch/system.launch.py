@@ -28,6 +28,16 @@ def generate_launch_description():
         default_value='radar_link',
         description='Radar reference frame',
     )
+    camera_frame_arg = DeclareLaunchArgument(
+        'camera_frame',
+        default_value='radar_camera',
+        description='Radar camera frame',
+    )
+    lidar_frame_arg = DeclareLaunchArgument(
+        'lidar_frame',
+        default_value='radar_lidar',
+        description='Radar lidar frame',
+    )
 
     tf_x_arg = DeclareLaunchArgument(
         'tf_x',
@@ -59,6 +69,66 @@ def generate_launch_description():
         default_value='0',
         description='Radar frame rotation yaw (radians)',
     )
+    camera_tf_x_arg = DeclareLaunchArgument(
+        'camera_tf_x',
+        default_value='0',
+        description='Camera frame translation x (meters)',
+    )
+    camera_tf_y_arg = DeclareLaunchArgument(
+        'camera_tf_y',
+        default_value='0',
+        description='Camera frame translation y (meters)',
+    )
+    camera_tf_z_arg = DeclareLaunchArgument(
+        'camera_tf_z',
+        default_value='0',
+        description='Camera frame translation z (meters)',
+    )
+    camera_tf_roll_arg = DeclareLaunchArgument(
+        'camera_tf_roll',
+        default_value='0',
+        description='Camera frame rotation roll (radians)',
+    )
+    camera_tf_pitch_arg = DeclareLaunchArgument(
+        'camera_tf_pitch',
+        default_value='0',
+        description='Camera frame rotation pitch (radians)',
+    )
+    camera_tf_yaw_arg = DeclareLaunchArgument(
+        'camera_tf_yaw',
+        default_value='0',
+        description='Camera frame rotation yaw (radians)',
+    )
+    lidar_tf_x_arg = DeclareLaunchArgument(
+        'lidar_tf_x',
+        default_value='0',
+        description='Lidar frame translation x (meters)',
+    )
+    lidar_tf_y_arg = DeclareLaunchArgument(
+        'lidar_tf_y',
+        default_value='0',
+        description='Lidar frame translation y (meters)',
+    )
+    lidar_tf_z_arg = DeclareLaunchArgument(
+        'lidar_tf_z',
+        default_value='0',
+        description='Lidar frame translation z (meters)',
+    )
+    lidar_tf_roll_arg = DeclareLaunchArgument(
+        'lidar_tf_roll',
+        default_value='0',
+        description='Lidar frame rotation roll (radians)',
+    )
+    lidar_tf_pitch_arg = DeclareLaunchArgument(
+        'lidar_tf_pitch',
+        default_value='0',
+        description='Lidar frame rotation pitch (radians)',
+    )
+    lidar_tf_yaw_arg = DeclareLaunchArgument(
+        'lidar_tf_yaw',
+        default_value='0',
+        description='Lidar frame rotation yaw (radians)',
+    )
 
     sensors_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -81,11 +151,41 @@ def generate_launch_description():
             LaunchConfiguration('tf_x'),
             LaunchConfiguration('tf_y'),
             LaunchConfiguration('tf_z'),
-            LaunchConfiguration('tf_roll'),
-            LaunchConfiguration('tf_pitch'),
             LaunchConfiguration('tf_yaw'),
+            LaunchConfiguration('tf_pitch'),
+            LaunchConfiguration('tf_roll'),
             LaunchConfiguration('base_frame'),
             LaunchConfiguration('radar_frame'),
+        ],
+    )
+    camera_tf = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='radar_camera_tf',
+        arguments=[
+            LaunchConfiguration('camera_tf_x'),
+            LaunchConfiguration('camera_tf_y'),
+            LaunchConfiguration('camera_tf_z'),
+            LaunchConfiguration('camera_tf_yaw'),
+            LaunchConfiguration('camera_tf_pitch'),
+            LaunchConfiguration('camera_tf_roll'),
+            LaunchConfiguration('radar_frame'),
+            LaunchConfiguration('camera_frame'),
+        ],
+    )
+    lidar_tf = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='radar_lidar_tf',
+        arguments=[
+            LaunchConfiguration('lidar_tf_x'),
+            LaunchConfiguration('lidar_tf_y'),
+            LaunchConfiguration('lidar_tf_z'),
+            LaunchConfiguration('lidar_tf_yaw'),
+            LaunchConfiguration('lidar_tf_pitch'),
+            LaunchConfiguration('lidar_tf_roll'),
+            LaunchConfiguration('radar_frame'),
+            LaunchConfiguration('lidar_frame'),
         ],
     )
 
@@ -101,13 +201,29 @@ def generate_launch_description():
         params_file_arg,
         base_frame_arg,
         radar_frame_arg,
+        camera_frame_arg,
+        lidar_frame_arg,
         tf_x_arg,
         tf_y_arg,
         tf_z_arg,
         tf_roll_arg,
         tf_pitch_arg,
         tf_yaw_arg,
+        camera_tf_x_arg,
+        camera_tf_y_arg,
+        camera_tf_z_arg,
+        camera_tf_roll_arg,
+        camera_tf_pitch_arg,
+        camera_tf_yaw_arg,
+        lidar_tf_x_arg,
+        lidar_tf_y_arg,
+        lidar_tf_z_arg,
+        lidar_tf_roll_arg,
+        lidar_tf_pitch_arg,
+        lidar_tf_yaw_arg,
         static_tf,
+        camera_tf,
+        lidar_tf,
         sensors_launch,
         perception_placeholder,
         decision_placeholder,

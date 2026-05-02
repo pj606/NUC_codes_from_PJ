@@ -40,7 +40,7 @@ flowchart LR
 
 ### TF tree & time sync (baseline)
 
-* TF: `base_link` → `radar_link` → `radar_camera` / `radar_lidar`
+* TF: `base_link` → `radar_link` → `radar_camera` / `radar_lidar` (static in `system.launch.py`, configurable via launch args)
 * Synchronization: perception nodes use approximate time (camera + lidar) with sensor timestamps; drivers publish with sensor time when available.
 
 ## Node list & lifecycle plan
