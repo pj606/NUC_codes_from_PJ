@@ -11,6 +11,11 @@ hik_camera_node:
     width: 3072
     height: 2048
 
+lidar_driver_node:
+  ros__parameters:
+    frame_id: radar_lidar
+    output_pointcloud_topic: /radar/lidar/points
+
 img_detector_node:
   ros__parameters:
     input_image_topic: /radar/camera/image_raw

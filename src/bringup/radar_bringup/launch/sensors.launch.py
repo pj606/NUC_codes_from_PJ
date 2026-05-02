@@ -1,5 +1,6 @@
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
+from launch.actions import DeclareLaunchArgument, LogInfo
+from launch.conditions import IfCondition
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import ComposableNodeContainer
 from launch_ros.descriptions import ComposableNode
@@ -23,6 +24,12 @@ def generate_launch_description():
         description='Component container name for radar sensors',
     )
 
+    enable_lidar_arg = DeclareLaunchArgument(
+        'enable_lidar',
+        default_value='false',
+        description='Enable lidar driver (placeholder)',
+    )
+
     camera_component = ComposableNode(
         package='hik_camera',
         plugin='hik_camera::CameraNode',
@@ -41,8 +48,15 @@ def generate_launch_description():
         ],
     )
 
+    lidar_placeholder = LogInfo(
+        msg='Lidar driver is not launched in this scaffold. Provide a lidar node before enabling ray_tracing.',
+        condition=IfCondition(LaunchConfiguration('enable_lidar')),
+    )
+
     return LaunchDescription([
         params_file_arg,
         container_name_arg,
+        enable_lidar_arg,
         container,
+        lidar_placeholder,
     ])

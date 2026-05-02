@@ -4,7 +4,7 @@
 
 | Layer | Packages | Responsibility |
 | --- | --- | --- |
-| Drivers | `drivers/hik_camera`, `drivers/lidar_driver` | Sensor acquisition (camera/lidar) |
+| Drivers | `drivers/hik_camera`, `drivers/lidar_driver` | Sensor acquisition (camera/lidar, lidar scaffold) |
 | Perception | `perception/img_detector`, `perception/ray_tracing` | Detection, ray tracing, target extraction |
 | Decision | `decision/double_vulner` | Vulnerability evaluation and output selection |
 | Interfaces | `interfaces/radar_interface` | Unified messages/services for radar I/O |
@@ -48,7 +48,7 @@ flowchart LR
 | Package | Node | Type | Lifecycle | Notes |
 | --- | --- | --- | --- | --- |
 | `hik_camera` | `hik_camera_node` | Component | Managed (future) | Publishes image + camera_info |
-| `lidar_driver` | `lidar_node` | Component | Managed (future) | Publishes point cloud |
+| `lidar_driver` | `lidar_node` | Component | Managed (future) | Scaffold package (node pending) |
 | `img_detector` | `img_detector_node` | Node/Component | Managed (future) | Outputs target list |
 | `ray_tracing` | `ray_tracing_node` | Node/Component | Managed (future) | Outputs ray traces |
 | `double_vulner` | `double_vulner_node` | Node/Component | Managed (future) | Outputs vulnerability + status |
@@ -70,7 +70,7 @@ flowchart LR
 
 | Launch file | Purpose |
 | --- | --- |
-| `radar_bringup/launch/sensors.launch.py` | Start camera component container |
+| `radar_bringup/launch/sensors.launch.py` | Start camera component container (lidar placeholder) |
 | `radar_bringup/launch/system.launch.py` | Full system shell + TF bootstrap |
 | `radar_bringup/launch/monitoring.launch.py` | Diagnostics + optional rosbag2 |
 | `radar_bringup/launch/replay.launch.py` | Rosbag2 replay |

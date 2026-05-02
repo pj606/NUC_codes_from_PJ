@@ -1,3 +1,4 @@
+# mode: 0=IDLE, 1=SCAN, 2=TRACK, 3=DEBUG
 uint8 mode
 bool enable_detection
 bool enable_tracking
