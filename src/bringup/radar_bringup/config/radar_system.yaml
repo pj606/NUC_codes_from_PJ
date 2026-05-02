@@ -1,0 +1,41 @@
+hik_camera_node:
+  ros__parameters:
+    frame_id: radar_camera
+    image_topic: /radar/camera/image_raw
+    camera_info_topic: /radar/camera/camera_info
+    camera_info_url: ""
+    serial: ""
+    capture_period_ms: 30
+    reconnect_period_ms: 5000
+    fail_threshold: 5
+    width: 3072
+    height: 2048
+
+img_detector_node:
+  ros__parameters:
+    input_image_topic: /radar/camera/image_raw
+    output_targets_topic: /radar/targets
+    output_markers_topic: /radar/targets/markers
+    use_approx_sync: true
+
+ray_tracing_node:
+  ros__parameters:
+    input_pointcloud_topic: /radar/lidar/points
+    targets_topic: /radar/targets
+    output_rays_topic: /radar/ray_traces
+
+double_vulner_node:
+  ros__parameters:
+    targets_topic: /radar/targets
+    tracking_topic: /radar/tracking
+    output_vulnerability_topic: /radar/vulnerability
+    output_status_topic: /radar/status
+
+radar_interface_node:
+  ros__parameters:
+    targets_topic: /radar/targets
+    tracking_topic: /radar/tracking
+    vulnerability_topic: /radar/vulnerability
+    status_topic: /radar/status
+    command_topic: /radar/command
+    command_service: /radar/set_mode

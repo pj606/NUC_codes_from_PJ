@@ -1,0 +1,10 @@
+analyzers:
+  radar:
+    type: diagnostic_aggregator/GenericAnalyzer
+    path: Radar
+    contains:
+      - radar
+      - camera
+      - lidar
+      - detector
+      - tracking
