@@ -6,6 +6,7 @@ from launch.substitutions import LaunchConfiguration
 def generate_launch_description():
     bag_path_arg = DeclareLaunchArgument(
         'bag_path',
+        default_value='radar_bag',
         description='Path to rosbag2 directory',
     )
 

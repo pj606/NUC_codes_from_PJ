@@ -29,6 +29,37 @@ def generate_launch_description():
         description='Radar reference frame',
     )
 
+    tf_x_arg = DeclareLaunchArgument(
+        'tf_x',
+        default_value='0',
+        description='Radar frame translation x (meters)',
+    )
+    tf_y_arg = DeclareLaunchArgument(
+        'tf_y',
+        default_value='0',
+        description='Radar frame translation y (meters)',
+    )
+    tf_z_arg = DeclareLaunchArgument(
+        'tf_z',
+        default_value='0',
+        description='Radar frame translation z (meters)',
+    )
+    tf_roll_arg = DeclareLaunchArgument(
+        'tf_roll',
+        default_value='0',
+        description='Radar frame rotation roll (radians)',
+    )
+    tf_pitch_arg = DeclareLaunchArgument(
+        'tf_pitch',
+        default_value='0',
+        description='Radar frame rotation pitch (radians)',
+    )
+    tf_yaw_arg = DeclareLaunchArgument(
+        'tf_yaw',
+        default_value='0',
+        description='Radar frame rotation yaw (radians)',
+    )
+
     sensors_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             PathJoinSubstitution([
@@ -46,9 +77,16 @@ def generate_launch_description():
         package='tf2_ros',
         executable='static_transform_publisher',
         name='radar_static_tf',
-        arguments=['0', '0', '0', '0', '0', '0',
-                   LaunchConfiguration('base_frame'),
-                   LaunchConfiguration('radar_frame')],
+        arguments=[
+            LaunchConfiguration('tf_x'),
+            LaunchConfiguration('tf_y'),
+            LaunchConfiguration('tf_z'),
+            LaunchConfiguration('tf_roll'),
+            LaunchConfiguration('tf_pitch'),
+            LaunchConfiguration('tf_yaw'),
+            LaunchConfiguration('base_frame'),
+            LaunchConfiguration('radar_frame'),
+        ],
     )
 
     perception_placeholder = LogInfo(
@@ -63,6 +101,12 @@ def generate_launch_description():
         params_file_arg,
         base_frame_arg,
         radar_frame_arg,
+        tf_x_arg,
+        tf_y_arg,
+        tf_z_arg,
+        tf_roll_arg,
+        tf_pitch_arg,
+        tf_yaw_arg,
         static_tf,
         sensors_launch,
         perception_placeholder,
