@@ -1,0 +1,7 @@
+uint8 mode
+bool enable_detection
+bool enable_tracking
+string source
+---
+bool accepted
+string message

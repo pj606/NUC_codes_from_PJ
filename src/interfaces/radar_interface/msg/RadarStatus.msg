@@ -1,0 +1,13 @@
+std_msgs/Header header
+uint8 mode
+uint8 MODE_IDLE=0
+uint8 MODE_SCAN=1
+uint8 MODE_TRACK=2
+uint8 MODE_DEBUG=3
+bool sensor_ok
+bool algorithm_ok
+string status_message
+diagnostic_msgs/DiagnosticStatus diagnostic
+builtin_interfaces/Time last_data_stamp
+float32 bandwidth_mbps
+float32 latency_ms

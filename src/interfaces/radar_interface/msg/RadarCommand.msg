@@ -1,0 +1,9 @@
+std_msgs/Header header
+uint8 mode
+uint8 MODE_IDLE=0
+uint8 MODE_SCAN=1
+uint8 MODE_TRACK=2
+uint8 MODE_DEBUG=3
+bool enable_detection
+bool enable_tracking
+string source

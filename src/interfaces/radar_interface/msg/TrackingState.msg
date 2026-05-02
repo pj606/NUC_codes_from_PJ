@@ -1,0 +1,10 @@
+std_msgs/Header header
+uint32 track_id
+uint8 state
+uint8 STATE_UNKNOWN=0
+uint8 STATE_TRACKING=1
+uint8 STATE_LOST=2
+float32 track_quality
+geometry_msgs/Point position
+geometry_msgs/Vector3 velocity
+builtin_interfaces/Time last_update
